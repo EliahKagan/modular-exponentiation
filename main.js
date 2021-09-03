@@ -20,16 +20,16 @@
                 throw error;
             }
         }
-    }
+    };
 
     const tryValidateBigInt = function (text, rangeCheck) {
         const value = tryParseBigInt(text);
         return value !== undefined && rangeCheck(value) ? value : undefined;
-    }
+    };
 
     const pyodide = await (async function () {
         const status = document.getElementById('status');
-        let ret = undefined;
+        let ret;
 
         try {
             ret = await loadPyodide({
@@ -46,55 +46,63 @@
         return ret;
     })();
 
-    const baseParens = Object.freeze(Array.from(
-            document.getElementsByClassName('base-paren')));
+    // A simple parameter that does not require any special display logic.
+    const Param = class {
+        constructor(name, rangeCheck = undefined) {
+            this.input = document.getElementById(`input-${name}`);
+            this.output = document.getElementById(`output-${name}`);
+            this.value = undefined;
 
-    const displayNormally = function (paramData) {
-        paramData.output.innerText = (paramData.value === undefined
+            this.rangeCheck = (rangeCheck === undefined
+                                ? _value => true
+                                : rangeCheck);
+        }
+
+        parse() {
+            this.value = tryValidateBigInt(this.input.value, this.rangeCheck);
+            this._show();
+            return this.value !== undefined;
+        }
+
+        _show() {
+            this.output.innerText = (this.value === undefined
                                         ? TEXT.NO_VALUE
-                                        : String(paramData.value));
-    }
-
-    const showBase = function () {
-        if (this.value !== undefined && this.value < 0n) {
-            baseParens.forEach(paren => paren.classList.add('parenthesize'));
-            this.output.innerText = `${TEXT.MINUS}${-this.value}`;
-        } else {
-            baseParens.forEach(paren => paren.classList.remove('parenthesize'));
-            displayNormally(this);
+                                        : String(this.value));
         }
     };
 
-    const params = Object.freeze((function () {
-        const ret = {};
+    // A base parameter: the parameter whose value is raised to an exponent.
+    // This is not a base in the sense of inheritance; it derives from Param.
+    const BaseParam = class extends Param {
+        constructor() {
+            super('base');
 
-        ['base', 'exponent', 'mod'].forEach(param => {
-            ret[param] = {
-                input: document.getElementById(`input-${param}`),
-                output: document.getElementById(`output-${param}`),
-                value: undefined,
-                rangeCheck: _value => true, // Default is no range check.
-                show: function () { displayNormally(this); },
-            };
-        });
+            this._baseParens = Object.freeze(Array.from(
+                    document.getElementsByClassName('base-paren')));
+        }
 
-        ret.base.show = showBase;
-        ret.exponent.rangeCheck = value => value >= 0n;
-        ret.mod.rangeCheck = value => value !== 0n;
+        _show() {
+            if (this.value !== undefined && this.value < 0n) {
+                this._baseParens.forEach(paren =>
+                        paren.classList.add('parenthesize'));
 
-        return ret;
-    })());
+                this.output.innerText = `${TEXT.MINUS}${-this.value}`;
+            } else {
+                this._baseParens.forEach(paren =>
+                    paren.classList.remove('parenthesize'));
+
+                super._show();
+            }
+        }
+    };
+
+    const params = Object.freeze({
+        base: new BaseParam(),
+        exponent: new Param('exponent', value => value >= 0n),
+        mod: new Param('mod', value => value !== 0n),
+    });
 
     const outputPower = document.getElementById('output-power');
-
-    const parse = function (paramData) {
-        value = tryValidateBigInt(paramData.input.value,
-                                  paramData.rangeCheck);
-
-        paramData.value = value;
-        paramData.show();
-        return value !== undefined;
-    };
 
     const computePower = function (base, exponent, mod) {
         return pyodide.runPython(`pow(${base}, ${exponent}, ${mod})`);
@@ -103,9 +111,9 @@
     const update = function () {
         let ok = true;
 
-        Object.values(params).forEach(paramData => {
+        Object.values(params).forEach(param => {
             // Don't short-circuit: update all, even if some are ill-formed.
-            ok = parse(paramData) && ok;
+            ok = param.parse() && ok;
         });
 
         if (ok) {
@@ -119,8 +127,8 @@
         }
     };
 
-    Object.values(params).forEach(paramData =>
-        paramData.input.addEventListener('input', update));
+    Object.values(params).forEach(param =>
+        param.input.addEventListener('input', update));
 
     update();
 })();
