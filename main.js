@@ -14,7 +14,7 @@
     const resultBase = document.getElementById('result-base');
     const resultExponent = document.getElementById('result-exponent');
     const resultMod = document.getElementById('result-mod');
-    const result = document.getElementById('result');
+    const resultPower = document.getElementById('result-power');
 
     const parse = function (input, rangeCheck = value => true) {
         const text = input.value.trim();
@@ -34,14 +34,14 @@
         resultBase.innerText = NO_VALUE;
         resultExponent.innerText = NO_VALUE;
         resultMod.innerText = NO_VALUE;
-        result.innerText = NO_VALUE;
+        resultPower.innerText = NO_VALUE;
     };
 
     const setResults = function (base, exponent, mod, power) {
         resultBase.innerText = String(base);
         resultExponent.innerText = String(exponent);
         resultMod.innerText = String(mod);
-        result.innerText = String(power);
+        resultPower.innerText = String(power);
     };
 
     const update = function () {
