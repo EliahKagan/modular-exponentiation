@@ -1,9 +1,11 @@
 (async function () {
+    // Literal text will sometimes be placed in output fields.
     const TEXT = Object.freeze({
         MINUS: '\u2212',
         NO_VALUE: '???',
     });
 
+    // Parses text as a bigint (returning undefined on failure).
     const tryParseBigInt = function (text) {
         text = text.trim();
 
@@ -22,11 +24,13 @@
         }
     };
 
+    // Parses text as a bigint, validating with a rangeCheck predicate.
     const tryValidateBigInt = function (text, rangeCheck) {
         const value = tryParseBigInt(text);
         return value !== undefined && rangeCheck(value) ? value : undefined;
     };
 
+    // Construct the Pyodide object, or show an error and abort on failure.
     const pyodide = await (async function () {
         const status = document.getElementById('status');
         let ret;
@@ -48,6 +52,7 @@
 
     // A simple parameter that does not require any special display logic.
     const Param = class {
+        // Creates a simple parameter with an optional range check predicate.
         constructor(name, rangeCheck = undefined) {
             this.input = document.getElementById(`input-${name}`);
             this.output = document.getElementById(`output-${name}`);
@@ -58,12 +63,15 @@
                                 : rangeCheck);
         }
 
+        // Parse input for this parameter. Returns true iff parsing was
+        // successful. Updates the corresponding output either way.
         parse() {
             this.value = tryValidateBigInt(this.input.value, this.rangeCheck);
             this._show();
             return this.value !== undefined;
         }
 
+        // Helper for parse(). Updates the output with the value or "???".
         _show() {
             this.output.innerText = (this.value === undefined
                                         ? TEXT.NO_VALUE
@@ -74,6 +82,7 @@
     // A base parameter: the parameter whose value is raised to an exponent.
     // This is not a base in the sense of inheritance; it derives from Param.
     const BaseParam = class extends Param {
+        // Creates a parameter for the base of the exponentiation operation.
         constructor() {
             super('base');
 
@@ -81,6 +90,8 @@
                     document.getElementsByClassName('base-paren')));
         }
 
+        // Overridden helper for parse(). Updates the output with the value or
+        // "???", also ensuring that negative values are clear and unambiguous.
         _show() {
             if (this.value !== undefined && this.value < 0n) {
                 this._baseParens.forEach(paren =>
@@ -96,18 +107,22 @@
         }
     };
 
+    // Parameters for all user inputs.
     const params = Object.freeze({
         base: new BaseParam(),
         exponent: new Param('exponent', value => value >= 0n),
         mod: new Param('mod', value => value !== 0n),
     });
 
-    const outputPower = document.getElementById('output-power');
-
+    // Use the Python interpreter to do the modular exponentiation operation.
     const computePower = function (base, exponent, mod) {
         return pyodide.runPython(`pow(${base}, ${exponent}, ${mod})`);
     };
 
+    // The HTML element that the solution will be placed in.
+    const outputPower = document.getElementById('output-power');
+
+    // Check inputs and produce whatever outputs are available from them.
     const update = function () {
         let ok = true;
 
