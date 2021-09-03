@@ -1,0 +1,46 @@
+html {
+  font-size: 1.5em;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 300;
+  margin: 0 auto;
+  max-width: 30rem;
+  padding: 0 1rem;
+}
+
+h1 {
+  font-size: 1.75rem;
+  font-weight: 200;
+}
+
+form {
+  width: 25rem;
+}
+
+input {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .8rem;
+  margin-right: .25rem;
+  width: 3rem;
+}
+
+label {
+  margin-left: .25rem;
+}
+
+.equation {
+  border: 1px dotted lightgray;
+  display: inline-block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 1.15rem;
+}
+
+.equation {
+  color: dimgray;
+}
+
+.equation>span, .equation>sup {
+  color: black;
+}

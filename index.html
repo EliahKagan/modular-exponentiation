@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=.86">
+    <title>Modular Exponentiation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400&family=Nunito:wght@200;300&display=swap">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.18.0/full/pyodide.js"></script>
+    <script src="main.js"></script>
+  </head>
+  <body>
+    <h1>Modular Exponentiation</h1>
+    <p>
+      This is a <a href="https://pyodide.org/en/stable/">pyodide</a>
+      demonstration.
+    </p>
+    <form>
+      <fieldset>
+        <label for="base">Base:</label>
+        <input id="base" type="text">
+        <label for="exponent">Exponent:</label>
+        <input id="exponent" type="text">
+        <label for="mod">Mod:</label>
+        <input id="mod" type="text">
+      </fieldset>
+    </form>
+  </body>
+  <p class="equation">
+    <span id="result-base">???</span><sup id="result-exponent">???</sup>
+    &equiv; <span id="result">???</span> (mod <span id="result-mod">???</span>)
+  </p>
+</html>
