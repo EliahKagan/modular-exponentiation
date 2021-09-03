@@ -1,5 +1,8 @@
 (async function () {
-    const NO_VALUE_TEXT = '???';
+    const TEXT = Object.freeze({
+        MINUS: '\u2212',
+        NO_VALUE: '???'
+    });
 
     const pyodide = await loadPyodide({
         indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.18.0/full/'
@@ -13,8 +16,13 @@
                 input: document.getElementById(`input-${param}`),
                 output: document.getElementById(`output-${param}`),
                 value: undefined,
+                rangeCheck: _value => true, // Default is no range check.
+                format: String,
             };
         });
+
+        ret.base.format = value =>
+            (value < 0 ? `(${TEXT.MINUS}${-value})` : String(value));
 
         ret.exponent.rangeCheck = value => value >= 0n;
         ret.mod.rangeCheck = value => value !== 0n;
@@ -44,14 +52,7 @@
 
     const tryValidateBigInt = function (text, rangeCheck) {
         const value = tryParseBigInt(text);
-
-        if (value === undefined) {
-            return undefined;
-        }
-        if (rangeCheck === undefined || rangeCheck(value)) {
-            return value;
-        }
-        return undefined;
+        return value !== undefined && rangeCheck(value) ? value : undefined;
     }
 
     const parse = function (paramData) {
@@ -61,11 +62,11 @@
         paramData.value = value;
 
         if (value === undefined) {
-            paramData.output.innerText = NO_VALUE_TEXT;
+            paramData.output.innerText = TEXT.NO_VALUE;
             return false;
         }
 
-        paramData.output.innerText = String(value);
+        paramData.output.innerText = paramData.format(value);
         return true;
     };
 
@@ -88,7 +89,7 @@
 
             outputPower.innerText = String(power);
         } else {
-            outputPower.innerText = NO_VALUE_TEXT;
+            outputPower.innerText = TEXT.NO_VALUE;
         }
     };
 
