@@ -11,7 +11,7 @@
           href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400&family=Nunito:wght@200;300&display=swap">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/pyodide/v0.18.0/full/pyodide.js"></script>
-    <script src="main.js"></script>
+    <script src="main.js" defer></script>
   </head>
   <body>
     <h1>Modular Exponentiation</h1>
@@ -35,4 +35,5 @@
     &equiv; <span id="output-power" class="output">???</span>
     (mod <span id="output-mod" class="output">???</span>)
   </p>
+  <p id="status">Loading pyodide&hellip;</p>
 </html>

@@ -27,9 +27,24 @@
         return value !== undefined && rangeCheck(value) ? value : undefined;
     }
 
-    const pyodide = await loadPyodide({
-        indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.18.0/full/',
-    });
+    const pyodide = await (async function () {
+        const status = document.getElementById('status');
+        let ret = undefined;
+
+        try {
+            ret = await loadPyodide({
+                indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.18.0/full/',
+            });
+        } catch (error) {
+            status.innerText = 'Oh no, pyodide failed to load!';
+            status.classList.add('error');
+            throw error;
+        }
+
+        status.innerText = 'pyodide loaded successfully!';
+        status.classList.add('loaded');
+        return ret;
+    })();
 
     const baseParens = Object.freeze(Array.from(
             document.getElementsByClassName('base-paren')));
