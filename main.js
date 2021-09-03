@@ -114,10 +114,8 @@
         mod: new Param('mod', value => value !== 0n),
     });
 
-    // Use the Python interpreter to do the modular exponentiation operation.
-    const computePower = function (base, exponent, mod) {
-        return pyodide.runPython(`pow(${base}, ${exponent}, ${mod})`);
-    };
+    // Python pow function. With three arguments, does modular exponentiation.
+    const pow = pyodide.globals.get('pow');
 
     // The HTML element that the solution will be placed in.
     const outputPower = document.getElementById('output-power');
@@ -132,9 +130,9 @@
         });
 
         if (ok) {
-            const power = computePower(params.base.value,
-                                       params.exponent.value,
-                                       params.mod.value);
+            const power = pow(params.base.value,
+                              params.exponent.value,
+                              params.mod.value);
 
             outputPower.innerText = String(power);
         } else {
