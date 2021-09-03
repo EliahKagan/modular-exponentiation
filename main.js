@@ -36,12 +36,12 @@
                 indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.18.0/full/',
             });
         } catch (error) {
-            status.innerText = 'Oh no, pyodide failed to load!';
+            status.innerText = 'Oh no, Pyodide failed to load!';
             status.classList.add('error');
             throw error;
         }
 
-        status.innerText = 'pyodide loaded successfully!';
+        status.innerText = 'Pyodide loaded successfully!';
         status.classList.add('loaded');
         return ret;
     })();
