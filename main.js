@@ -1,11 +1,34 @@
 (async function () {
     const TEXT = Object.freeze({
         MINUS: '\u2212',
-        NO_VALUE: '???'
+        NO_VALUE: '???',
     });
 
+    const tryParseBigInt = function (text) {
+        text = text.trim();
+
+        if (text.length === 0) {
+            return undefined; // Refuse to parse an empty string as zero.
+        }
+
+        try {
+            return BigInt(text);
+        } catch (error) {
+            if (error instanceof SyntaxError) {
+                return undefined; // The input did not look like an integer.
+            } else {
+                throw error;
+            }
+        }
+    }
+
+    const tryValidateBigInt = function (text, rangeCheck) {
+        const value = tryParseBigInt(text);
+        return value !== undefined && rangeCheck(value) ? value : undefined;
+    }
+
     const pyodide = await loadPyodide({
-        indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.18.0/full/'
+        indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.18.0/full/',
     });
 
     const params = Object.freeze((function () {
@@ -31,29 +54,6 @@
     })());
 
     const outputPower = document.getElementById('output-power');
-
-    const tryParseBigInt = function (text) {
-        text = text.trim();
-
-        if (text.length === 0) {
-            return undefined; // Refuse to parse an empty string as zero.
-        }
-
-        try {
-            return BigInt(text);
-        } catch (error) {
-            if (error instanceof SyntaxError) {
-                return undefined; // The input did not look like an integer.
-            } else {
-                throw error;
-            }
-        }
-    }
-
-    const tryValidateBigInt = function (text, rangeCheck) {
-        const value = tryParseBigInt(text);
-        return value !== undefined && rangeCheck(value) ? value : undefined;
-    }
 
     const parse = function (paramData) {
         value = tryValidateBigInt(paramData.input.value,
