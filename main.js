@@ -121,4 +121,6 @@
 
     Object.values(params).forEach(paramData =>
         paramData.input.addEventListener('input', update));
+
+    update();
 })();

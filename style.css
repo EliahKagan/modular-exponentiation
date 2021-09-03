@@ -15,6 +15,16 @@ h1 {
   font-weight: 200;
 }
 
+p>a {
+  border-bottom: 1px solid transparent;
+  text-decoration: none;
+}
+
+p>a:hover {
+  background-color: aliceblue;
+  border-bottom-color: inherit;
+}
+
 p#status {
   background-color: lightyellow;
   color: darkred;
@@ -26,16 +36,6 @@ p#status.error {
 
 p#status.loaded {
   display: none;
-}
-
-p>a {
-  border-bottom: 1px solid transparent;
-  text-decoration: none;
-}
-
-p>a:hover {
-  background-color: aliceblue;
-  border-bottom-color: inherit;
 }
 
 form {
