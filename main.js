@@ -16,7 +16,7 @@
     const resultMod = document.getElementById('result-mod');
     const result = document.getElementById('result');
 
-    const parse = function (input, rangeCheck = (value) => true) {
+    const parse = function (input, rangeCheck = value => true) {
         const text = input.value.trim();
         if (text.length === 0) {
             throw new SyntaxError('refusing to parse empty string as zero');

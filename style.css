@@ -16,18 +16,28 @@ h1 {
 }
 
 form {
-  width: 25rem;
+  width: 26rem;
 }
 
 input {
   font-family: 'IBM Plex Mono', monospace;
   font-size: .8rem;
   margin-right: .25rem;
-  width: 3rem;
+  width: 3.5rem;
 }
 
 label {
   margin-left: .25rem;
+}
+
+p>a {
+  border-bottom: 1px solid transparent;
+  text-decoration: none;
+}
+
+p>a:hover {
+  background-color: aliceblue;
+  border-bottom-color: inherit;
 }
 
 .equation {
