@@ -15,21 +15,6 @@ h1 {
   font-weight: 200;
 }
 
-form {
-  width: 26rem;
-}
-
-input {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: .8rem;
-  margin-right: .25rem;
-  width: 3.5rem;
-}
-
-label {
-  margin-left: .25rem;
-}
-
 p>a {
   border-bottom: 1px solid transparent;
   text-decoration: none;
@@ -40,17 +25,31 @@ p>a:hover {
   border-bottom-color: inherit;
 }
 
+form {
+  width: 26rem;
+}
+
+input, .equation {
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+input {
+  font-size: .8rem;
+  margin-right: .25rem;
+  width: 3.5rem;
+}
+
+label {
+  margin-left: .25rem;
+}
+
 .equation {
   border: 1px dotted lightgray;
+  color: dimgray;
   display: inline-block;
-  font-family: 'IBM Plex Mono', monospace;
   font-size: 1.15rem;
 }
 
-.equation {
-  color: dimgray;
-}
-
-.equation>span, .equation>sup {
+.equation>.output {
   color: black;
 }
