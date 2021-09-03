@@ -45,11 +45,19 @@ label {
 
 .equation {
   border: 1px dotted lightgray;
-  color: dimgray;
+  color: #787878;
   display: inline-block;
   font-size: 1.15rem;
 }
 
 .equation>.output {
   color: black;
+}
+
+.equation>.base-paren {
+  display: none;
+}
+
+.equation>.base-paren.parenthesize {
+  display: inherit;
 }

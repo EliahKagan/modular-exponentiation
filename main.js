@@ -31,6 +31,25 @@
         indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.18.0/full/',
     });
 
+    const baseParens = Object.freeze(Array.from(
+            document.getElementsByClassName('base-paren')));
+
+    const displayNormally = function (paramData) {
+        paramData.output.innerText = (paramData.value === undefined
+                                        ? TEXT.NO_VALUE
+                                        : String(paramData.value));
+    }
+
+    const showBase = function () {
+        if (this.value !== undefined && this.value < 0n) {
+            baseParens.forEach(paren => paren.classList.add('parenthesize'));
+            this.output.innerText = `${TEXT.MINUS}${-this.value}`;
+        } else {
+            baseParens.forEach(paren => paren.classList.remove('parenthesize'));
+            displayNormally(this);
+        }
+    };
+
     const params = Object.freeze((function () {
         const ret = {};
 
@@ -40,13 +59,11 @@
                 output: document.getElementById(`output-${param}`),
                 value: undefined,
                 rangeCheck: _value => true, // Default is no range check.
-                format: String,
+                show: function () { displayNormally(this); },
             };
         });
 
-        ret.base.format = value =>
-            (value < 0 ? `(${TEXT.MINUS}${-value})` : String(value));
-
+        ret.base.show = showBase;
         ret.exponent.rangeCheck = value => value >= 0n;
         ret.mod.rangeCheck = value => value !== 0n;
 
@@ -60,14 +77,8 @@
                                   paramData.rangeCheck);
 
         paramData.value = value;
-
-        if (value === undefined) {
-            paramData.output.innerText = TEXT.NO_VALUE;
-            return false;
-        }
-
-        paramData.output.innerText = paramData.format(value);
-        return true;
+        paramData.show();
+        return value !== undefined;
     };
 
     const computePower = function (base, exponent, mod) {
