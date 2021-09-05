@@ -1,4 +1,6 @@
 (async function () {
+    'use strict';
+
     // Literal text will sometimes be placed in output fields.
     const TEXT = Object.freeze({
         MINUS: '\u2212',
@@ -104,7 +106,7 @@
     };
 
     // A base parameter: the parameter whose value is raised to an exponent.
-    // This is not a base in the sense of inheritance; it derives from Param.
+    // This is not a base in the sense of inheritance; it *derives* from Param.
     const BaseParam = class extends Param {
         // Creates a parameter for the base of the exponentiation operation.
         constructor() {
