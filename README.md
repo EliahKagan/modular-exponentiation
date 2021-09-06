@@ -1,6 +1,7 @@
 # modular-exponentiation - a Pyodide demonstration
 
-This is a simple single-page site that uses Pyodide to do big-integer modular
+This is a simple single-page site that uses
+[Pyodide](https://pyodide.org/en/stable/) to do big-integer modular
 exponentiation with
 [`pow`](https://docs.python.org/3/library/functions.html#pow), by running a
 Python interpreter in the user&rsquo;s browser via WebAssembly.
