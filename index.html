@@ -1,5 +1,20 @@
 <!DOCTYPE html>
 
+<!--
+  Copyright (C) 2021 Eliah Kagan <degeneracypressure@gmail.com>
+
+  Permission to use, copy, modify, and/or distribute this software for any
+  purpose with or without fee is hereby granted.
+
+  THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+  REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+  AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+  INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+  LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+  OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+  PERFORMANCE OF THIS SOFTWARE.
+-->
+
 <html lang="en-US">
   <head>
     <meta charset="utf-8">
@@ -8,32 +23,44 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400&family=Nunito:wght@200;300&display=swap">
+          href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400&family=Nunito:wght@200;300;700&display=swap">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.3/gh-fork-ribbon.min.css"
+          integrity="sha512-TktJbycEG5Van9KvrSHFUcYOKBroD7QCYkEe73HAutODCw9QTFcvF6fuxioYM1h6THNudK1GjVidazj6EslK4A=="
+          crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/pyodide/v0.18.0/full/pyodide.js"></script>
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.18.0/full/pyodide.js" defer></script>
     <script src="main.js" defer></script>
   </head>
   <body>
-    <h1>Modular Exponentiation</h1>
-    <p>
-      This is a demonstration of
-      <a href="https://pyodide.org/en/stable/">Pyodide</a>.
-    </p>
-    <form>
-      <fieldset>
-        <label for="input-base">Base:</label>
-        <input id="input-base" type="text" value="-352">
-        <label for="input-exponent">Exponent:</label>
-        <input id="input-exponent" type="text" value="25543">
-        <label for="input-mod">Mod:</label>
-        <input id="input-mod" type="text" value="241">
-      </fieldset>
-    </form>
-    <p class="equation">
-      <span class="base-paren">(</span><span id="output-base" class="output">???</span><span class="base-paren">)</span><sup id="output-exponent" class="output">???</sup>
-      &equiv; <span id="output-power" class="output">???</span>
-      (mod <span id="output-mod" class="output">???</span>)
-    </p>
-    <p id="status">Loading pyodide&hellip;</p>
+    <header>
+      <a class="github-fork-ribbon"
+         href="https://github.com/EliahKagan/modular-exponentiation"
+         data-ribbon="Fork me on GitHub"
+         title="Fork me on GitHub">Fork me on GitHub</a>
+    </header>
+    <main>
+      <h1>Modular Exponentiation</h1>
+      <p>
+        This is a demonstration of
+        <a href="https://pyodide.org/en/stable/">Pyodide</a>.
+      </p>
+      <form>
+        <fieldset>
+          <label for="input-base">Base:</label>
+          <input id="input-base" type="text" value="-352">
+          <label for="input-exponent">Exponent:</label>
+          <input id="input-exponent" type="text" value="25543">
+          <label for="input-mod">Mod:</label>
+          <input id="input-mod" type="text" value="241">
+        </fieldset>
+      </form>
+      <p class="equation">
+        <span class="base-paren">(</span><span id="output-base" class="output">???</span><span class="base-paren">)</span><sup id="output-exponent" class="output">???</sup>
+        &equiv; <span id="output-power" class="output">???</span>
+        (mod <span id="output-mod" class="output">???</span>)
+      </p>
+      <p id="status">Loading pyodide&hellip;</p>
+    </main>
   </body>
 </html>
