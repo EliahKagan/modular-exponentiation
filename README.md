@@ -12,6 +12,9 @@ purposes, since Pyodide is overkill for that. (It takes several seconds to
 load, and modular exponentiation can be implemented on JavaScript bigints with
 a straightforward recursive function.)
 
+[**Try modular-exponentiation online
+here.**](https://eliahkagan.github.io/modular-exponentiation/)
+
 ## License
 
 This repository is licensed under [0BSD](https://spdx.org/licenses/0BSD.html). See [**`LICENSE`**](LICENSE).
