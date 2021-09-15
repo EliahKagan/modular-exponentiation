@@ -14,7 +14,7 @@
 (async function () {
     'use strict';
 
-    // Literal text will sometimes be placed in output fields.
+    // Literal text that will sometimes be placed in output fields.
     const TEXT = Object.freeze({
         MINUS: '\u2212',
         NO_VALUE: '???',
