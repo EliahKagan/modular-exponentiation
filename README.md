@@ -17,7 +17,8 @@ here.**](https://eliahkagan.github.io/modular-exponentiation/)
 
 ## License
 
-This repository is licensed under [0BSD](https://spdx.org/licenses/0BSD.html). See [**`LICENSE`**](LICENSE).
+This repository is licensed under [0BSD](https://spdx.org/licenses/0BSD.html).
+See [**`LICENSE`**](LICENSE).
 
 ## Dependencies
 
