@@ -52,7 +52,7 @@
 
         try {
             ret = await loadPyodide({
-                indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.23.2/full/',
+                indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.23.4/full/',
             });
         } catch (error) {
             status.innerText = 'Oh no, Pyodide failed to load!';
